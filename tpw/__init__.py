@@ -30,7 +30,6 @@ def load_user(user_id):
 
 @app.before_first_request
 def setup():
-    print(os.getenv("DATABASE_URI"))
     db.create_all()
 
 

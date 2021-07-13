@@ -18,7 +18,16 @@
       <div class="header item">
         TPW
       </div>
-      <a href="#" class="item">Home</a>
+      <a href="{{ url_for('main.index') }}" class="item">Home</a>
+      <div class="right menu">
+        {% if current_user.is_authenticated %}
+        <div class="item"><strong>{{ current_user.username }}</strong></div>
+        <a href="{{ url_for('auth.logout') }}" class="item">Logout</a>
+        {% else %}
+        <a href="{{ url_for('auth.register_get') }}" class="item">Register</a>
+        <a href="{{ url_for('auth.login_get') }}" class="item">Log in</a>
+        {% endif %}
+      </div>
     </div>
   </div>
   {% block content %}{% endblock %}
