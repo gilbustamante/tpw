@@ -26,10 +26,10 @@ def register_post():
     user_email = User.query.filter_by(email=email).first()
     user_name = User.query.filter_by(username=username).first()
     if user_email:
-        flash("Email already registered.")
+        flash("Email already registered.", "error")
         return redirect(url_for("auth.register_get"))
     if user_name:
-        flash("Username already registered.")
+        flash("Username already registered.", "error")
         return redirect(url_for("auth.register_get"))
 
     # Hash password and create new user
@@ -92,5 +92,5 @@ def profile_post():
     user.email = email
     user.apikey = api_key
     db.session.commit()
-    flash("User details updated.")
+    flash("User details updated.", "success")
     return redirect(url_for("auth.profile_get"))

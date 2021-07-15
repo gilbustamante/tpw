@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-
 main = Blueprint("main", __name__)
 
 
