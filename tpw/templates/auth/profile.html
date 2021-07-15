@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="ui teal segment">
+  {{ messages[0] }}
+</div>
+{% endif %}
+{% endwith %}
+<h1>User Profile: {{ user.username }}</h1>
+<form action="{{ url_for('auth.profile_post') }}" class="ui form" method="POST">
+  <div class="field">
+    <label>Username</label>
+    <input type="text" value="{{ user.username }}" disabled>
+  </div>
+  <div class="field">
+    <label>Email</label>
+    <input type="text" name="email" value="{{ user.email }}">
+  </div>
+  <div class="field">
+    <label>API Key</label>
+    <input type="text" name="apikey" value="{{ user.apikey }}">
+  </div>
+  <button type="submit" class="ui button">Update</button>
+</form>
+{% endblock %}

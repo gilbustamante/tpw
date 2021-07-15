@@ -21,7 +21,7 @@
       <a href="{{ url_for('main.index') }}" class="item">Home</a>
       <div class="right menu">
         {% if current_user.is_authenticated %}
-        <div class="item"><strong>{{ current_user.username }}</strong></div>
+        <a href="{{ url_for('auth.profile_get') }}" class="item"><strong>{{ current_user.username }}</strong></a>
         <a href="{{ url_for('auth.logout') }}" class="item">Logout</a>
         {% else %}
         <a href="{{ url_for('auth.register_get') }}" class="item">Register</a>
@@ -30,7 +30,9 @@
       </div>
     </div>
   </div>
-  {% block content %}{% endblock %}
+  <div class="ui container">
+    {% block content %}{% endblock %}
+  </div>
 
 
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
