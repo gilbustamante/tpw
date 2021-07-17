@@ -9,7 +9,7 @@
     <br>
     {{ currency.name }}
     <br>
-    {{ currency.value }}
+    {{ currency.value|safe }}
   </div>
   {% endfor %}
 </div>
