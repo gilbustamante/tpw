@@ -17,7 +17,7 @@ def index():
 
 @main.route("/wallet", methods=["GET"])
 @login_required
-def api_get():
+def wallet():
     url = "https://api.guildwars2.com/v2/account/wallet"
     wallet = auth_api_call(current_user.id, url)
     for item in wallet:

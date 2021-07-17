@@ -19,6 +19,23 @@
         TPW
       </div>
       <a href="{{ url_for('main.index') }}" class="item">Home</a>
+      <div class="ui simple dropdown item">
+        Character
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a href="{{ url_for('main.wallet') }}" class="item">Bank</a>
+          <a href="{{ url_for('main.wallet') }}" class="item">Dyes</a>
+          <a href="{{ url_for('main.wallet') }}" class="item">Wallet</a>
+        </div>
+      </div>
+      <div class="ui simple dropdown item">
+        Market
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a href="{{ url_for('main.wallet') }}" class="item">Current Listings</a>
+          <a href="{{ url_for('main.wallet') }}" class="item">Market History</a>
+        </div>
+      </div>
       <div class="right menu">
         {% if current_user.is_authenticated %}
         <a href="{{ url_for('auth.profile_get') }}" class="item"><strong>{{ current_user.username }}</strong></a>
