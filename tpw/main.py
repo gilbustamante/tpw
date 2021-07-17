@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from dotenv import load_dotenv
-from .helpers import auth_api_call
+from tpw.helpers import auth_api_call, public_api_call
+from .models import Currency
 import requests
 
 # Load environment variables
@@ -19,4 +20,8 @@ def index():
 def api_get():
     url = "https://api.guildwars2.com/v2/account/wallet"
     wallet = auth_api_call(current_user.id, url)
+    for item in wallet:
+        curr = Currency.query.filter_by(currency_id=item["id"]).first()
+        item["name"] = curr.name
+        item["icon"] = curr.icon
     return render_template("character/wallet.html", wallet=wallet)

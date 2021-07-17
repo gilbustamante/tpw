@@ -5,7 +5,9 @@
 <div class="ui grid stackable container">
   {% for currency in wallet %}
   <div class="four wide column center aligned segment">
-    {{ currency.id }}
+    <img class="ui centered rounded image" width="64" src="{{ currency.icon }}" alt="{{ currency.name }}">
+    <br>
+    {{ currency.name }}
     <br>
     {{ currency.value }}
   </div>

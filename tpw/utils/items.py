@@ -30,12 +30,11 @@ def add_data(email, username, password, apikey):
     try:
         statement = "INSERT INTO users (email, username, passwd, apikey) VALUES (%s, %s, %s, %s)"
         data = (email, username, password, apikey)
-        print(statement, data)
         cursor.execute(statement, data)
         connection.commit()
         print(f"Added user {username} to database.")
     except database.Error as e:
-        print(f"Error: {e}")
+        print(f"Database Error: {e}")
 
 
 if __name__ == '__main__':

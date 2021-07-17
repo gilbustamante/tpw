@@ -9,3 +9,10 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(40), unique=True)
     passwd = db.Column(db.String(100))
     apikey = db.Column(db.String(80))
+
+
+class Currency(db.Model):
+    __tablename__ = "currencies"
+    currency_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(300))
+    icon = db.Column(db.String(300))
