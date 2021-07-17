@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Dyes{% endblock %}
+{% block content %}
+<h1>Dyes</h1>
+<div class="ui compact centered grid stackable container">
+  {% for dye in dyes %}
+  {% if dye.name %}
+  <div class="four wide column center aligned colorCell">
+    <div style="
+    color: rgb(255, 255, 255);
+    text-shadow: 2px 2px 2px rgb(0, 0, 0);
+    background: rgb({{ dye.red }}, {{ dye.blue }}, {{ dye.green }});">
+      {{ dye.name }}</div>
+  </div>
+  {% endif %}
+  {% endfor %}
+</div>
+{% endblock %}

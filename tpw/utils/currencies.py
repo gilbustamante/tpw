@@ -1,9 +1,6 @@
-"""
-Populates the database with GW2's currency data.
-"""
+"""Populates database with GW2's currency data."""
 
 import os
-import requests
 import mysql.connector as database
 from dotenv import load_dotenv
 from ..helpers import public_api_call
