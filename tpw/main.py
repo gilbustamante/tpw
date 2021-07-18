@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from dotenv import load_dotenv
 from tpw.helpers import auth_api_call, public_api_call, format_number, format_gold
 from .models import Currency, Dye
+from .utils import items
 import requests
 
 # Load environment variables

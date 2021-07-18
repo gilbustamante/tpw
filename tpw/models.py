@@ -10,7 +10,6 @@ class User(UserMixin, db.Model):
     passwd = db.Column(db.String(100))
     apikey = db.Column(db.String(80))
 
-
 class Currency(db.Model):
     __tablename__ = "currencies"
     currency_id = db.Column(db.Integer, primary_key=True)
@@ -24,3 +23,11 @@ class Dye(db.Model):
     red = db.Column(db.Integer)
     blue = db.Column(db.Integer)
     green = db.Column(db.Integer)
+
+class Item(db.Model):
+    __tablename__ = "items"
+    item_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(300))
+    icon = db.Column(db.String(300))
+    item_level = db.Column(db.Integer)
+    rarity = db.Column(db.String(50))
