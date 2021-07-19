@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from .extensions import db
 from .main import main as main_blueprint
 from .auth import auth as auth_blueprint
+from .market import market as market_blueprint
 from .models import User
 import os
 
@@ -36,3 +37,4 @@ def setup():
 # Config
 app.register_blueprint(main_blueprint)
 app.register_blueprint(auth_blueprint)
+app.register_blueprint(market_blueprint)
