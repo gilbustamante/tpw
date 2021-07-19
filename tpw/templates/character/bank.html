@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Bank Storage{% endblock %}
+{% block content %}
+<h1>Bank Storage</h1>
+<p>Free slots available: {{ free }}</p>
+<div class="ui compact grid stackable list">
+  {% for item in items %}
+  {% if item.name %}
+  <div class="eight wide column item">
+    <img class="ui rounded image" src="{{ item.icon }}" alt="{{ item.name }}">
+    <div class="content">
+      <span class="header">{{ item.name }}</span>
+      <div class="description">
+        Qty: {{ item.count}}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+</div>
+{% endblock %}
