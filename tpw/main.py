@@ -32,7 +32,7 @@ def wallet():
         # Otherwise just format normally
         else:
             item["value"] = format_number(item["value"])
-    return render_template("character/wallet.html", wallet=wallet)
+    return render_template("character/wallet.html", wallet=res)
 
 @main.route("/dyes", methods=["GET"])
 @login_required

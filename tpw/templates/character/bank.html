@@ -12,6 +12,10 @@
       <span class="header">{{ item.name }}</span>
       <div class="description">
         Qty: {{ item.count}}
+        {% if item.bound_to %}
+        <br>
+        <span class="bound">Bound to: {{ item.bound_to }}</span>
+        {% endif %}
       </div>
     </div>
   </div>
