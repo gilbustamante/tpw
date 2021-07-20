@@ -44,13 +44,27 @@ def find_item(item_id: int):
     return Item.query.filter_by(item_id=item_id).first()
 
 def check_if_undercut(order: dict, prices: list):
-    """Determines if order has been undercut"""
+    """Determines if sell order has been undercut"""
     for price in prices:
         item_undercut = (
             # If item ID matches...
             price["id"] == order["item_id"]
-            # ...and the lowest price is below our item's price
+            # ...and the lowest price is below our item's sale price
             and price["sells"]["unit_price"] < order["price"]
         )
         if item_undercut:
+            order["market_sell"] = price["sells"]["unit_price"]
+            return True
+
+def check_if_outbid(order: dict, prices: list):
+    """Determines if buy order has been outbid"""
+    for price in prices:
+        item_outbid = (
+            # If item ID matches...
+            price["id"] == order["item_id"]
+            # ...and the highest price is above our buy order's price
+            and price["buys"]["unit_price"] > order["price"]
+        )
+        if item_outbid:
+            order["market_buy"] = price["buys"]["unit_price"]
             return True
