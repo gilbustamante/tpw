@@ -1,4 +1,4 @@
-from .models import User
+from .models import User, Item
 import requests
 
 def find_user(user_id: int):
@@ -38,3 +38,19 @@ def format_gold(number: int):
                    {copper} <img src="/static/images/copper.png">"""
     else:
         return f"""{copper} <img src="/static/images/copper.png">"""
+
+def find_item(item_id: int):
+    """Retrieves item information from database"""
+    return Item.query.filter_by(item_id=item_id).first()
+
+def check_if_undercut(order: dict, prices: list):
+    """Determines if order has been undercut"""
+    for price in prices:
+        item_undercut = (
+            # If item ID matches...
+            price["id"] == order["item_id"]
+            # ...and the lowest price is below our item's price
+            and price["sells"]["unit_price"] < order["price"]
+        )
+        if item_undercut:
+            return True

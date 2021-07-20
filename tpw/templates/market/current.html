@@ -2,4 +2,17 @@
 {% block title %}Current Listings{% endblock %}
 {% block content %}
 <h1>Current Listings</h1>
+<div class="ui relaxed divided stackable list">
+  {% for sale in sells %}
+  <div class="item">
+    <img src="{{ sale.icon }}" alt="{{ sale.name }}" class="ui rounded image">
+    <div class="content">
+      <span class="header">{{ sale.name }}</span>
+      <div class="description">
+        Price here {% if sale.undercut == True %}UNDERCUT!{% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}
