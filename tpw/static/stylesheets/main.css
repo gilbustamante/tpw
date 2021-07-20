@@ -12,3 +12,16 @@ body {
 .colorCell {
   line-height: 2em;
 }
+
+.danger {
+  background: rgba(255, 0, 0, 0.1);
+}
+
+/* For hours I tried to get Fomantic-UI's built-in "center" class to work
+with the market tabs to no avail so looks like we need to use this CSS */
+.ui.secondary.pointing.menu a:first-child {
+  margin-left: auto;
+}
+.ui.secondary.pointing.menu a:last-child {
+  margin-right: auto;
+}
