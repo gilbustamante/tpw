@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, flash
 from flask_login import login_required, current_user
 from dotenv import load_dotenv
 from .models import Currency, Dye, Item
@@ -28,9 +28,9 @@ def current_listings():
     sell_id_list = [str(item["item_id"]) for item in sells]
     buy_id_list = [str(item["item_id"]) for item in buys]
     all_ids = sell_id_list + buy_id_list
+    # Warn users some results might not show up if number of requests is >200
     if len(all_ids) > 200:
-        # TODO: Handle this
-        print("Number of requests higher than 200. Some results may be truncated")
+        flash("Number of requests higher than 200. Some results may be truncated", "error")
     prices = public_api_call(price_url + ','.join(all_ids))
 
     # Sells: Find item and add some values for passing to template
@@ -48,4 +48,13 @@ def current_listings():
         if check_if_outbid(order, prices):
             order["outbid"] = True
 
-    return render_template("market/current.html", sells=sells, buys=buys, format_gold=format_gold)
+    # Items to pickup from trading post
+    delivery_res = auth_api_call(current_user.id, delivery_url)
+    delivery = {
+        "coins": delivery_res["coins"],
+        "item_count": len(delivery_res["items"])
+    }
+
+    return render_template("market/current.html",
+                           sells=sells, buys=buys,
+                           delivery=delivery, format_gold=format_gold)
