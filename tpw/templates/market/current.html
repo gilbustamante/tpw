@@ -9,7 +9,7 @@
 </div>
 
 <div class="ui active tab" data-tab="sell">
-  <h2>Sell</h2>
+  <h2>Sell Orders</h2>
   <div class="ui compact divided stackable list">
     {% for order in sells %}
     <div class="item padded {{ 'danger' if order.undercut }}">
@@ -21,6 +21,8 @@
           {% if order.undercut == True %}
           <span class="muted">({{ format_gold(order.market_sell)|safe }})</span>
           {% endif %}
+          <br>
+          <small>{{ order.created|timeago }}</small>
         </div>
       </div>
     </div>
@@ -29,8 +31,8 @@
 </div>
 
 <div class="ui tab" data-tab="buy">
-  <h2>Buy</h2>
-  <div class="ui relaxed divided stackable list">
+  <h2>Buy Orders</h2>
+  <div class="ui compact divided stackable list">
     {% for order in buys %}
     <div class="middle aligned item {{ 'danger' if order.outbid }}">
       <img src="{{ order.icon }}" alt="{{ order.name }}" class="ui rounded image">
@@ -41,6 +43,8 @@
           {% if order.outbid %}
           <span class="muted">({{ format_gold(order.market_buy)|safe }})</span>
           {% endif %}
+          <br>
+          <small>{{ order.created|timeago }}</small>
         </div>
       </div>
     </div>
