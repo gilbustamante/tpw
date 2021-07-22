@@ -1,5 +1,5 @@
 body {
-  font-size: 1.3em;
+  font-size: 1.2em;
   margin-top: 55px;
 }
 
@@ -15,6 +15,10 @@ body {
 
 .danger {
   background: rgba(255, 0, 0, 0.1);
+}
+
+div span.itemName:active {
+  left: 4px;
 }
 
 /* For hours I tried to get Fomantic-UI's built-in "center" class to work

@@ -15,8 +15,8 @@ def current_listings():
     # All the URLs we'll need for this request
     sell_url = "https://api.guildwars2.com/v2/commerce/transactions/current/sells"
     buy_url = "https://api.guildwars2.com/v2/commerce/transactions/current/buys"
-    delivery_url = "https://api.guildwars2.com/v2/commerce/delivery"
     price_url = "https://api.guildwars2.com/v2/commerce/prices?ids="
+    delivery_url = "https://api.guildwars2.com/v2/commerce/delivery"
 
     # Request account's sell orders
     sells = auth_api_call(current_user.id, sell_url)
@@ -30,7 +30,7 @@ def current_listings():
     all_ids = sell_id_list + buy_id_list
     # Warn users some results might not show up if number of requests is >200
     if len(all_ids) > 200:
-        flash("Number of requests higher than 200. Some results may be truncated", "error")
+        flash("Number of requests higher than 200. Some results may be truncated.", "error")
     prices = public_api_call(price_url + ','.join(all_ids))
 
     # Sells: Find item and add some values for passing to template

@@ -30,12 +30,12 @@
 
 <div class="ui active tab" data-tab="sell">
   <h2>Sell Orders</h2>
-  <div class="ui compact divided stackable list">
+  <div class="ui relaxed divided stackable list">
     {% for order in sells %}
     <div class="item padded {{ 'danger' if order.undercut }}">
       <img src="{{ order.icon }}" alt="{{ order.name }}" class="ui rounded image">
       <div class="content">
-        <span class="header">{{ order.name }}</span>
+        <span class="header itemName" data-tooltip="Click to copy" data-position="left center">{{ order.name }}</span>
         <div class="description">
           {{ format_gold(order.price)|safe }}
           {% if order.undercut == True %}
@@ -57,7 +57,7 @@
     <div class="middle aligned item {{ 'danger' if order.outbid }}">
       <img src="{{ order.icon }}" alt="{{ order.name }}" class="ui rounded image">
       <div class="content">
-        <span class="header">{{ order.name }}</span>
+        <span class="header itemName" data-tooltip="Click to copy" data-position="left center">{{ order.name }}</span>
         <div class="description">
           {{ format_gold(order.price)|safe }}
           {% if order.outbid %}
