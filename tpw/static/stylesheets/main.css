@@ -1,3 +1,12 @@
+a {
+  color: rgb(175, 0, 0);
+}
+
+a:hover {
+  color: rgb(255, 0, 0);
+  text-decoration: underline;
+}
+
 body {
   font-size: 1.2em;
   margin-top: 55px;
@@ -19,6 +28,10 @@ body {
 
 div span.itemName:active {
   left: 4px;
+}
+
+div span.itemName:hover {
+  cursor: pointer;
 }
 
 /* For hours I tried to get Fomantic-UI's built-in "center" class to work
