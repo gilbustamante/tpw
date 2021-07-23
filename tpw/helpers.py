@@ -37,7 +37,7 @@ def format_gold(number: int):
         return f"""{silver} <img src="/static/images/silver.png"> 
                    {copper} <img src="/static/images/copper.png">"""
     else:
-        return f"""{copper} <img src="/static/images/copper.png">"""
+        return f"""{number} <img src="/static/images/copper.png">"""
 
 def find_item(item_id: int):
     """Retrieves item information from database"""

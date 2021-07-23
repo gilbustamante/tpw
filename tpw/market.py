@@ -10,9 +10,9 @@ load_dotenv()
 
 market = Blueprint("market", __name__)
 
-@market.route("/current")
-def current_listings():
-    # All the URLs we'll need for this request
+@market.route("/current", methods=["GET"])
+def listings_current():
+    # All the URLs we'll need for this route
     sell_url = "https://api.guildwars2.com/v2/commerce/transactions/current/sells"
     buy_url = "https://api.guildwars2.com/v2/commerce/transactions/current/buys"
     price_url = "https://api.guildwars2.com/v2/commerce/prices?ids="
@@ -56,5 +56,30 @@ def current_listings():
     }
 
     return render_template("market/current.html",
-                           sells=sells, buys=buys,
-                           delivery=delivery, format_gold=format_gold)
+                            sells=sells, buys=buys,
+                            delivery=delivery, format_gold=format_gold)
+
+@market.route("/history", methods=["GET"])
+def listings_history():
+    sold_url = "https://api.guildwars2.com/v2/commerce/transactions/history/sells"
+    bought_url = "https://api.guildwars2.com/v2/commerce/transactions/history/buys"
+
+    # Request sell history
+    sold = auth_api_call(current_user.id, sold_url)
+
+    # Request bought history
+    bought = auth_api_call(current_user.id, bought_url)
+
+    # Sold: Find item and add values for passing to template
+    for order in sold:
+        item = find_item(order["item_id"])
+        order["name"] = item.name
+        order["icon"] = item.icon
+
+    for order in bought:
+        item = find_item(order["item_id"])
+        order["name"] = item.name
+        order["icon"] = item.icon
+
+    return render_template("market/history.html", sold=sold,
+                            bought=bought, format_gold=format_gold)
