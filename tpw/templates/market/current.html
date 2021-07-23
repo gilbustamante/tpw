@@ -3,23 +3,19 @@
 {% block content %}
 <h1>Current Listings</h1>
 {% if delivery.coins > 0 or delivery.item_count > 0 %}
-<div class="ui green raised segment list">
+<div class="ui positive message">
   <p>Ready for pickup:</p>
   {% if delivery.coins > 0 %}
-  <div class="item">
+  <p>
     <i class="right triangle icon"></i>
-    <div class="content">
-      <div class="header">{{ format_gold(delivery.coins)|safe }}</div>
-    </div>
-  </div>
+    {{ format_gold(delivery.coins)|safe }}
+  </p>
   {% endif %}
   {% if delivery.item_count > 0 %}
-  <div class="item">
+  <p>
     <i class="right triangle icon"></i>
-    <div class="content">
-      <div class="header">{{ delivery.item_count }} items</div>
-    </div>
-  </div>
+    {{ delivery.item_count }} items
+  </p>
   {% endif %}
 </div>
 <div class="ui secondary pointing choices menu">

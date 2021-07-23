@@ -62,7 +62,7 @@ def login_post():
 
     # Check if non-existent user or if password is incorrect
     if not user or not check_password_hash(user.passwd, password):
-        flash("Wrong username or password. Please try again.")
+        flash("Wrong username or password. Please try again.", "error")
         return redirect(url_for("auth.login_get"))
 
     # Log user in

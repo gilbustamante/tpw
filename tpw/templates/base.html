@@ -47,15 +47,15 @@
   <div class="ui container">
     {% with messages = get_flashed_messages(category_filter=["success"]) %}
     {% if messages %}
-    <div class="ui teal segment">
-      {{ messages[0] }}
+    <div class="ui positive message">
+      <p>{{ messages[0] }}</p>
     </div>
     {% endif %}
     {% endwith %}
     {% with messages = get_flashed_messages(category_filter=["error"]) %}
     {% if messages %}
-    <div class="ui red inverted raised segment">
-      {{ messages[0] }}
+    <div class="ui negative message">
+      <p>{{ messages[0] }}</p>
     </div>
     {% endif %}
     {% endwith %}
