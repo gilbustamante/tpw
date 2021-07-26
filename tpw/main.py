@@ -17,7 +17,6 @@ def index():
 @main.route("/wallet", methods=["GET"])
 @login_required
 def wallet():
-    # Retrieve wallet info
     url = "https://api.guildwars2.com/v2/account/wallet"
     res = auth_api_call(current_user.id, url)
 
@@ -37,7 +36,6 @@ def wallet():
 @main.route("/dyes", methods=["GET"])
 @login_required
 def dyes():
-    # Retrieve dye IDs
     url = "https://api.guildwars2.com/v2/account/dyes"
     res = auth_api_call(current_user.id, url)
 
@@ -51,12 +49,11 @@ def dyes():
 @main.route("/bank", methods=["GET"])
 @login_required
 def bank():
-    # Retrieve bank items
     url = "https://api.guildwars2.com/v2/account/bank"
     res = auth_api_call(current_user.id, url)
     mutable_items = list(res)
 
-    # For keeping track of empty bank slots
+    # Empty bank slots
     free = 0 
 
     for item in mutable_items:

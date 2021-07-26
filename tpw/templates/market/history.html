@@ -14,7 +14,9 @@
     <div class="item padded {{ 'danger' if order.undercut }}">
       <img src="{{ order.icon }}" alt="{{ order.name }}" class="ui rounded image">
       <div class="content">
-        <span class="header itemName" data-tooltip="Click to copy" data-position="left center">{{ order.name }}</span>
+        <span class="header itemName" data-tooltip="Click to copy" data-position="left center">
+          {{ order.name }} ({{ order.quantity }})
+        </span>
         <div class="description">
           {{ format_gold(order.price)|safe }}
           <br>

@@ -26,12 +26,15 @@
 
 <div class="ui active tab" data-tab="sell">
   <h2>Sell Orders</h2>
+  <div>Estimated profit: {{ format_gold(profit)|safe }}</div>
   <div class="ui relaxed divided stackable list">
     {% for order in sells %}
     <div class="item padded {{ 'danger' if order.undercut }}">
       <img src="{{ order.icon }}" alt="{{ order.name }}" class="ui rounded image">
       <div class="content">
-        <span class="header itemName" data-tooltip="Click to copy" data-position="left center">{{ order.name }}</span>
+        <span class="header itemName" data-tooltip="Click to copy" data-position="left center">
+          {{ order.name }} ({{ order.quantity }})
+        </span>
         <div class="description">
           {{ format_gold(order.price)|safe }}
           {% if order.undercut == True %}

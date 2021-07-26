@@ -17,6 +17,7 @@ def listings_current():
     buy_url = "https://api.guildwars2.com/v2/commerce/transactions/current/buys"
     price_url = "https://api.guildwars2.com/v2/commerce/prices?ids="
     delivery_url = "https://api.guildwars2.com/v2/commerce/delivery"
+    item_profit = []
 
     # Request account's sell orders
     sells = auth_api_call(current_user.id, sell_url)
@@ -40,6 +41,8 @@ def listings_current():
         order["icon"] = item.icon
         if check_if_undercut(order, prices):
             order["undercut"] = True
+        # For total profit, after fees
+        item_profit.append((order["price"] * order["quantity"]) * 0.85)
     # Buys
     for order in buys:
         item = find_item(order["item_id"])
@@ -55,8 +58,10 @@ def listings_current():
         "item_count": len(delivery_res["items"])
     }
 
+    profit = int(sum(item_profit)) # We only need an approximate value
+
     return render_template("market/current.html",
-                            sells=sells, buys=buys,
+                            sells=sells, buys=buys, profit=profit,
                             delivery=delivery, format_gold=format_gold)
 
 @market.route("/history", methods=["GET"])
