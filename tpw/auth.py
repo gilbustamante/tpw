@@ -9,8 +9,13 @@ from .models import User
 
 auth = Blueprint("auth", __name__)
 
-
+# The JawsDB service only allows 5MB of database storage for basic accounts.
+# The database for this app totals just over 8MB, meaning I am able to migrate
+# it but the INSERT privilege for the account is disabled while the size
+# is > 5MB. This means new users are unable to register (can't INSERT the
+# user's info into the DB). As a result registration is temporarily disabled.
 @auth.route("/register", methods=["GET"])
+@login_required # "disables" registration
 def register_get():
     return render_template("auth/register.html")
 

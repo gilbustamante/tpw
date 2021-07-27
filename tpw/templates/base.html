@@ -38,7 +38,7 @@
         <a href="{{ url_for('auth.profile_get') }}" class="item"><strong>{{ current_user.username }}</strong></a>
         <a href="{{ url_for('auth.logout') }}" class="item">Logout</a>
         {% else %}
-        <a href="{{ url_for('auth.register_get') }}" class="item">Register</a>
+        <a href="{{ url_for('auth.register_get') }}" class="item disabled">Register</a>
         <a href="{{ url_for('auth.login_get') }}" class="item">Log in</a>
         {% endif %}
       </div>

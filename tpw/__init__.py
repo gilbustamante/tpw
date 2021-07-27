@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 import timeago
 import os
 
+# TODO: Caching for api requests?
 
 # Init app
 app = Flask(__name__)
