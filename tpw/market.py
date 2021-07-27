@@ -11,6 +11,7 @@ load_dotenv()
 market = Blueprint("market", __name__)
 
 @market.route("/current", methods=["GET"])
+@login_required
 def listings_current():
     # All the URLs we'll need for this route
     sell_url = "https://api.guildwars2.com/v2/commerce/transactions/current/sells"
@@ -65,6 +66,7 @@ def listings_current():
                             delivery=delivery, format_gold=format_gold)
 
 @market.route("/history", methods=["GET"])
+@login_required
 def listings_history():
     sold_url = "https://api.guildwars2.com/v2/commerce/transactions/history/sells"
     bought_url = "https://api.guildwars2.com/v2/commerce/transactions/history/buys"
