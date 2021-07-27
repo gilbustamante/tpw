@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, render_template
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from .extensions import db
@@ -14,6 +14,16 @@ import os
 
 # Init app
 app = Flask(__name__)
+
+# 404 Error handler
+@app.errorhandler(404)
+def page_not_found(err):
+    return render_template("errors/404.html"), 404
+
+# 500 Error handler
+@app.errorhandler(500)
+def page_not_found(err):
+    return render_template("errors/500.html"), 500
 
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 DB_URL = os.getenv("DATABASE_URI") or os.getenv("JAWSDB_MARIA_URL")
