@@ -1,8 +1,9 @@
 """Auth routes/blueprint"""
 
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, abort, request
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from is_safe_url import is_safe_url
 from .extensions import db
 from tpw.helpers import find_user
 from .models import User
@@ -39,10 +40,8 @@ def register_post():
 
     # Hash password and create new user
     hashed_pw = generate_password_hash(password, method="sha256")
-    new_user = User(email=email,
-                    username=username,
-                    passwd=hashed_pw,
-                    apikey=api_key)
+    new_user = User(email=email, username=username,
+                    passwd=hashed_pw, apikey=api_key)
 
     # Add user to DB
     db.session.add(new_user)
@@ -72,7 +71,13 @@ def login_post():
 
     # Log user in
     login_user(user, remember=remember)
-    return redirect(url_for("main.index"))
+    
+    # If user was redirected to login form, send them back
+    next = request.args.get("next")
+    if next and not is_safe_url(next, request.host_url):
+        flash("Invalid URL. Please try again.", "error")
+        return redirect(url_for("auth.login_get"))
+    return redirect(next or url_for("main.index"))
 
 
 @auth.route("/logout", methods=["GET"])

@@ -2,7 +2,7 @@
 {% block title %}Log in{% endblock %}
 {% block content %}
 <h1>Log in</h1>
-<form action="{{ url_for('auth.login_post') }}" class="ui form" method="POST">
+<form class="ui form" method="POST">
   <div class="field">
     <label>Username</label>
     <input type="text" name="username" placeholder="Username" required>
@@ -17,6 +17,6 @@
       <label>Remember me</label>
     </div>
   </div>
-  <button class="ui button" type="submit">Submit</button>
+  <button class="ui button" type="submit">Log in</button>
 </form>
 {% endblock %}
