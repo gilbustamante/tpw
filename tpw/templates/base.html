@@ -23,6 +23,7 @@
           <a href="{{ url_for('main.bank') }}" class="item">Bank</a>
           <a href="{{ url_for('main.dyes') }}" class="item">Dyes</a>
           <a href="{{ url_for('main.wallet') }}" class="item">Wallet</a>
+          <a href="{{ url_for('auth.profile_get') }}" class="item">Profile</a>
         </div>
       </div>
       <div class="ui simple dropdown item">
@@ -35,7 +36,6 @@
       </div>
       <div class="right menu">
         {% if current_user.is_authenticated %}
-        <a href="{{ url_for('auth.profile_get') }}" class="item"><strong>{{ current_user.username }}</strong></a>
         <a href="{{ url_for('auth.logout') }}" class="item">Logout</a>
         {% else %}
         <a href="{{ url_for('auth.register_get') }}" class="item disabled">Register</a>
