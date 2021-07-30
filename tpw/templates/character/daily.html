@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Daily Achievements{% endblock %}
+{% block content %}
+<h1>Daily Achievements</h1>
+<div class="ui relaxed divided stackable list">
+  {% for item in achievements %}
+  <div class="item">
+    <div class="content">
+      <span class="header">{{ item.name }}</span>
+      <div class="description">
+        {{ item.requirement }}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

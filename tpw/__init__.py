@@ -11,10 +11,6 @@ from datetime import datetime, timezone
 import timeago
 import os
 
-# TODO: Caching for api requests?
-# TODO: Move profile link to character dropdown, for mobile screens
-# TODO: Login form validation
-
 # Init app
 app = Flask(__name__)
 

@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, url_for
 from flask_login import login_required, current_user
 from dotenv import load_dotenv
-from tpw.helpers import auth_api_call, public_api_call, format_number, format_gold
+from tpw.helpers import (auth_api_call, public_api_call,
+                         format_number, format_gold)
 from .models import Currency, Dye, Item
 
 # Load environment variables
@@ -82,3 +83,28 @@ def bank():
         item["rarity"] = item_obj.rarity
 
     return render_template("character/bank.html", items=mutable_items, free=free)
+
+@main.route("/daily", methods=["GET"])
+def daily():
+    url = "https://api.guildwars2.com/v2/achievements/daily?v=2019-05-16T00:00:00.000Z"
+    detail_url = "https://api.guildwars2.com/v2/achievements?ids="
+
+    today_raw = public_api_call(url)
+
+    # This baffles me, but if I combine the following two `for` statements, the
+    # max level condition check doesn't work. Separately it does. No idea.
+    for item in today_raw["pve"]:
+        if item["level"]["max"] < 80:
+            today_raw["pve"].remove(item)
+    for item in today_raw["pve"]:
+        if "required_access" in item and item["required_access"]["condition"] == "NoAccess":
+            today_raw["pve"].remove(item)
+
+    all_ids = ([str(ach_id["id"]) for ach_id in today_raw["pve"]] + 
+               [str(ach_id["id"]) for ach_id in today_raw["pvp"]] + 
+               [str(ach_id["id"]) for ach_id in today_raw["fractals"]] + 
+               [str(ach_id["id"]) for ach_id in today_raw["wvw"]] + 
+               [str(ach_id["id"]) for ach_id in today_raw["special"]])
+    today_details = public_api_call(detail_url + ','.join(all_ids))
+
+    return render_template("character/daily.html", achievements=today_details)
