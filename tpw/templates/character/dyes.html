@@ -2,11 +2,16 @@
 {% block title %}Dyes{% endblock %}
 {% block content %}
 <h1>Dyes</h1>
+<div class="ui big fluid icon input">
+  <input id="filterInput" type="text" placeholder="Type to search" aria-label="Search input" autofocus>
+  <i class="search icon"></i>
+</div>
+<div class="ui divider"></div>
 <div class="ui compact centered grid stackable container">
   {% for dye in dyes %}
   {% if dye.name %}
-  <div class="four wide column center aligned colorCell">
-    <div style="
+  <div class="four wide column center aligned colorCell listGroupItem">
+    <div class="itemName" style="
     color: rgb(255, 255, 255);
     text-shadow: 2px 2px 2px rgb(0, 0, 0);
     background: rgb({{ dye.red }}, {{ dye.blue }}, {{ dye.green }});">

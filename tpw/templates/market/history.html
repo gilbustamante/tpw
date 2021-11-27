@@ -2,6 +2,10 @@
 {% block title %}Listing History{% endblock %}
 {% block content %}
 <h1>Listing History</h1>
+<div class="ui big fluid icon input">
+  <input id="filterInput" type="text" placeholder="Type to search" aria-label="Search input" autofocus>
+  <i class="search icon"></i>
+</div>
 <div class="ui secondary pointing choices menu">
   <a class="active red item" data-tab="sell">Sold</a>
   <a class="fluid red item" data-tab="buy">Bought</a>
@@ -11,7 +15,7 @@
   <h2>Items Sold</h2>
   <div class="ui relaxed divided stackable list">
     {% for order in sold %}
-    <div class="item padded {{ 'danger' if order.undercut }}">
+    <div class="item padded listGroupItem {{ 'danger' if order.undercut }}">
       <img src="{{ order.icon }}" alt="{{ order.name }}" class="ui rounded image">
       <div class="content">
         <span class="header itemName" data-tooltip="Click to copy" data-position="left center">
@@ -32,7 +36,7 @@
   <h2>Items Bought</h2>
   <div class="ui compact divided stackable list">
     {% for order in bought %}
-    <div class="middle aligned item {{ 'danger' if order.outbid }}">
+    <div class="middle aligned item listGroupItem {{ 'danger' if order.outbid }}">
       <img src="{{ order.icon }}" alt="{{ order.name }}" class="ui rounded image">
       <div class="content">
         <span class="header itemName" data-tooltip="Click to copy" data-position="left center">{{ order.name }}</span>

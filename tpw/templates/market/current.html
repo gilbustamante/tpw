@@ -2,6 +2,10 @@
 {% block title %}Current Listings{% endblock %}
 {% block content %}
 <h1>Current Listings</h1>
+<div class="ui big fluid icon input">
+  <input id="filterInput" type="text" placeholder="Type to search" aria-label="Search input" autofocus>
+  <i class="search icon"></i>
+</div>
 {% if delivery.coins > 0 or delivery.item_count > 0 %}
 <div class="ui positive message">
   <p>Ready for pickup:</p>
@@ -29,7 +33,7 @@
   <div>Estimated profit: {{ format_gold(profit)|safe }}</div>
   <div class="ui relaxed divided stackable list">
     {% for order in sells %}
-    <div class="item padded {{ 'danger' if order.undercut }}">
+    <div class="item padded listGroupItem {{ 'danger' if order.undercut }}">
       <img src="{{ order.icon }}" alt="{{ order.name }}" class="ui rounded image">
       <div class="content">
         <span class="header itemName" data-tooltip="Click to copy" data-position="left center">
@@ -53,7 +57,7 @@
   <h2>Buy Orders</h2>
   <div class="ui compact divided stackable list">
     {% for order in buys %}
-    <div class="middle aligned item {{ 'danger' if order.outbid }}">
+    <div class="middle aligned item listGroupItem {{ 'danger' if order.outbid }}">
       <img src="{{ order.icon }}" alt="{{ order.name }}" class="ui rounded image">
       <div class="content">
         <span class="header itemName" data-tooltip="Click to copy" data-position="left center">{{ order.name }}</span>

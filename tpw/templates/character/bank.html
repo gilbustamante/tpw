@@ -3,13 +3,18 @@
 {% block content %}
 <h1>Bank Storage</h1>
 <p>Free slots available: {{ free }}</p>
+<div class="ui big fluid icon input">
+  <input id="filterInput" type="text" placeholder="Type to search" aria-label="Search input" autofocus>
+  <i class="search icon"></i>
+</div>
+<div class="ui divider"></div>
 <div class="ui compact grid stackable list">
   {% for item in items %}
   {% if item.name %}
-  <div class="eight wide column item">
+  <div class="eight wide column item listGroupItem">
     <img src="{{ item.icon }}" alt="{{ item.name }}" class="ui rounded image">
     <div class="content">
-      <span class="header">{{ item.name }}</span>
+      <span class="header itemName">{{ item.name }}</span>
       <div class="description">
         Qty: {{ item.count }}
         {% if item.bound_to %}
