@@ -1,9 +1,10 @@
 """Populates database with GW2's dye data"""
 
 import os
+
+import requests
 import mysql.connector as database
 from dotenv import load_dotenv
-from ..helpers import public_api_call
 
 load_dotenv()
 
@@ -20,6 +21,7 @@ connection = database.connect(
 cursor = connection.cursor()
 
 def add_dyes(dye):
+    """Add each dye to database"""
     try:
         statement = """
         INSERT INTO dyes (dye_id, name, red, blue, green) 
@@ -33,16 +35,16 @@ def add_dyes(dye):
         cursor.execute(statement, data)
         connection.commit()
         print(f"Added dye {dye['name']} to db.")
-    except database.Error as e:
-        print(f"Database Error: {e}")
+    except database.Error as err:
+        print(f"Database Error: {err}")
 
 
 
 try:
     for i in range(0, 4):
         url = f"https://api.guildwars2.com/v2/colors?page={i}&page_size=200"
-        res = public_api_call(url)
+        res = requests.get(url).json()
         for item in res:
             add_dyes(item)
-except TypeError as e:
-    print(f"Error: {e} (reached end of dye list?)")
+except TypeError as err:
+    print(f"Error: {err} (reached end of dye list?)")

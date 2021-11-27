@@ -5,9 +5,10 @@ we should be OK iterating 303 times to grab all the items in the game.
 """
 
 import os
+
+import requests
 import mysql.connector as database
 from dotenv import load_dotenv
-from ..helpers import public_api_call
 
 load_dotenv()
 
@@ -37,8 +38,7 @@ def add_items(item):
 try:
     for i in range(0, 303):
         url = f"https://api.guildwars2.com/v2/items?page={i}&page_size=200"
-        res = public_api_call(url)
-        print(res[0])
+        res = requests.get(url).json()
         for item in res:
             add_items(item)
 except TypeError as e:

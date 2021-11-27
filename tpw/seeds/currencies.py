@@ -1,9 +1,11 @@
 """Populates database with GW2's currency data."""
 
 import os
+
+import requests
 import mysql.connector as database
 from dotenv import load_dotenv
-from ..helpers import public_api_call
+#from ..helpers import public_api_call
 
 load_dotenv()
 
@@ -32,7 +34,8 @@ def add_currencies(currency):
         print(f"Database Error: {e}")
 
 url = "https://api.guildwars2.com/v2/currencies?ids=all"
-res = public_api_call(url)
+#res = public_api_call(url)
+res = requests.get(url).json()
 
 for result in res:
     add_currencies(result)

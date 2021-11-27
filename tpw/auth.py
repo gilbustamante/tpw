@@ -1,6 +1,7 @@
 """Auth routes/blueprint"""
 
-from flask import Blueprint, render_template, redirect, url_for, request, flash, abort, request
+from flask import (Blueprint, render_template, redirect, url_for,
+                   request, flash, abort, request)
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from is_safe_url import is_safe_url
