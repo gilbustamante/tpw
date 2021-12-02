@@ -1,17 +1,51 @@
 {% extends "base.html" %}
-{% block title %}Daily Achievements{% endblock %}
+{% block title %}Today's Daily Achievements{% endblock %}
 {% block content %}
-<h1>Daily Achievements</h1>
-<div class="ui relaxed divided stackable list">
-  {% for item in achievements %}
-  <div class="item">
-    <div class="content">
-      <span class="header">{{ item.name }}</span>
-      <div class="description">
-        {{ item.requirement }}
+<h1>Today's Daily Achievements</h1>
+<div class="ui relaxed divided celled stackable list">
+  <h2>PvE</h2>
+    {% for item in achievements.pve %}
+    <div class="item">
+      <div class="content">
+        <span class="header">{{ item.name }}</span>
+        <div class="description">
+          {{ item.requirement }}
+        </div>
       </div>
     </div>
-  </div>
-  {% endfor %}
+    {% endfor %}
+  <h2>PvP</h2>
+    {% for item in achievements.pvp %}
+    <div class="item">
+      <div class="content">
+        <span class="header">{{ item.name }}</span>
+        <div class="description">
+          {{ item.requirement }}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  <h2>Fractals</h2>
+    {% for item in achievements.fractals %}
+    <div class="item">
+      <div class="content">
+        <span class="header">{{ item.name }}</span>
+        <div class="description">
+          {{ item.requirement }}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  <h2>WvW</h2>
+    {% for item in achievements.wvw %}
+    <div class="item">
+      <div class="content">
+        <span class="header">{{ item.name }}</span>
+        <div class="description">
+          {{ item.requirement }}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

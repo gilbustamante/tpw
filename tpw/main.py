@@ -13,11 +13,13 @@ main = Blueprint("main", __name__)
 
 @main.route("/", methods=["GET"])
 def index():
+    """Main page"""
     return render_template("index.html")
 
 @main.route("/wallet", methods=["GET"])
 @login_required
 def wallet():
+    """Pulls current account's currency info"""
     url = "https://api.guildwars2.com/v2/account/wallet"
     res = auth_api_call(current_user.id, url)
 
@@ -37,6 +39,7 @@ def wallet():
 @main.route("/dyes", methods=["GET"])
 @login_required
 def dyes():
+    """Pulls current account's unlocked dyes"""
     url = "https://api.guildwars2.com/v2/account/dyes"
     res = auth_api_call(current_user.id, url)
 
@@ -50,6 +53,7 @@ def dyes():
 @main.route("/bank", methods=["GET"])
 @login_required
 def bank():
+    """Pulls current account's bank info"""
     url = "https://api.guildwars2.com/v2/account/bank"
     res = auth_api_call(current_user.id, url)
     mutable_items = list(res)
@@ -69,8 +73,8 @@ def bank():
         # GW2 item API doesn't whitelist an item until it has been interacted
         # with by a user. A few years back the main whitelist was "lost" and
         # had to be recreated by ArenaNet. This causes old items to return None
-        # even though they are actually in the user's bank, requiring this second
-        # check. What a pain...
+        # even though they are actually in the user's bank, requiring this
+        # second check. What a pain...
         if item_obj is None:
             item["name"] = "Unknown Item"
             item["icon"] = f"{url_for('static', filename='images/unknown.png')}"
@@ -86,25 +90,33 @@ def bank():
 
 @main.route("/daily", methods=["GET"])
 def daily():
+    """Pulls daily achievement info"""
     url = "https://api.guildwars2.com/v2/achievements/daily?v=2019-05-16T00:00:00.000Z"
     detail_url = "https://api.guildwars2.com/v2/achievements?ids="
 
     today_raw = public_api_call(url)
 
-    # This baffles me, but if I combine the following two `for` statements, the
+    # This baffles me, but if I combine the following two `if` statements, the
     # max level condition check doesn't work. Separately it does. No idea.
     for item in today_raw["pve"]:
         if item["level"]["max"] < 80:
             today_raw["pve"].remove(item)
-    for item in today_raw["pve"]:
+    #for item in today_raw["pve"]:
         if "required_access" in item and item["required_access"]["condition"] == "NoAccess":
             today_raw["pve"].remove(item)
 
-    all_ids = ([str(ach_id["id"]) for ach_id in today_raw["pve"]] + 
-               [str(ach_id["id"]) for ach_id in today_raw["pvp"]] + 
-               [str(ach_id["id"]) for ach_id in today_raw["fractals"]] + 
-               [str(ach_id["id"]) for ach_id in today_raw["wvw"]] + 
+    all_ids = ([str(ach_id["id"]) for ach_id in today_raw["pve"]] +
+               [str(ach_id["id"]) for ach_id in today_raw["pvp"]] +
+               [str(ach_id["id"]) for ach_id in today_raw["fractals"]] +
+               [str(ach_id["id"]) for ach_id in today_raw["wvw"]] +
                [str(ach_id["id"]) for ach_id in today_raw["special"]])
     today_details = public_api_call(detail_url + ','.join(all_ids))
 
-    return render_template("character/daily.html", achievements=today_details)
+    # There should always be the same amount of dailies for each category
+    sorted_details = dict()
+    sorted_details["pve"] = today_details[:4]
+    sorted_details["pvp"] = today_details[4:8]
+    sorted_details["fractals"] = today_details[8:23]
+    sorted_details["wvw"] = today_details[23:27]
+
+    return render_template("character/daily.html", achievements=sorted_details)
