@@ -13,6 +13,8 @@ body {
   height: 90%;
 }
 
+/* Fomantic automatically overrides this so unfortunately the !important is
+ * necessary for the filterSearch.js script to work correctly */
 .hidden {
   display: none !important;
 }
@@ -39,8 +41,8 @@ div span.itemName:hover {
   cursor: pointer;
 }
 
-/* For hours I tried to get Fomantic-UI's built-in "center" class to work
-with the market tabs to no avail so looks like we need to use this CSS */
+/* For hours I tried to get Fomantic-UI's built-in "center" class to work with
+ * the market tabs to no avail so looks like we need to use this CSS */
 .ui.secondary.pointing.menu a:first-child {
   margin-left: auto;
 }

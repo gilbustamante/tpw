@@ -6,7 +6,6 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>{% block title %}{% endblock %} - TPW</title>
   {% endblock %}
 </head>
@@ -60,7 +59,10 @@
     </div>
     {% endif %}
     {% endwith %}
+  </div>
+  <div class="ui container">
     {% block content %}{% endblock %}
+    <div class="ui hidden divider"></div>
   </div>
 
 
