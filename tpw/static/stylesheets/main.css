@@ -13,6 +13,29 @@ body {
   height: 90%;
 }
 
+progress {
+  width: 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: 10px;
+}
+
+/* For Firefox */
+progress::-moz-progress-bar {
+  background: rgb(175, 0, 0);
+}
+
+/* For Chrome or Safari */
+progress::-webkit-progress-value {
+    background: rgb(175, 0, 0);
+}
+
+/* For IE10 */
+progress {
+    background: rgb(175, 0, 0);
+}
+
 /* Fomantic automatically overrides this so unfortunately the !important is
  * necessary for the filterSearch.js script to work correctly */
 .hidden {

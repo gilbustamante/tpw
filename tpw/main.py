@@ -147,10 +147,10 @@ def griffon():
     # Start building result dictionary
     for item in raw_achievements:
         if item["id"] in griffonIDs:
-            percentage = round((item["current"] / item["max"]) * 100)
             new_dict = dict(
                 id=item["id"],
-                percentage=percentage,
+                max=item["max"],
+                current=item["current"],
                 done=item["done"]
             )
             result.append(new_dict)

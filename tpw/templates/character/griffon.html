@@ -2,8 +2,8 @@
 {% block title %}Griffon Unlock Tracker{% endblock %}
 {% block content %}
 <h1>Griffon Unlock Tracker</h1>
-<p>Hello</p>
-<div class="ui stackable list">
+<p>The griffon mount is a reward for completing <a href="https://wiki.guildwars2.com/wiki/Griffon_(mount)#Unlock_achievements">scavenger hunts</a> around <a href="https://wiki.guildwars2.com/wiki/Elona">Elona</a> (as well as some bounties/events). You will need a total of 250 <img src="{{ url_for('static', filename='images/gold.png') }}" alt="Gold"> to complete the collections. Below is a list of the achievements and your account's progress in each.</p>
+<div class="ui relaxed stackable list">
   {% for item in results %}
   <div class="item">
     <div class="content">
@@ -11,13 +11,11 @@
       <div class="description">
         {{ item.description }}
       </div>
-      <div class="ui progress" data-percent="{{ item.percentage }}%">
-        <div class="bar">
-          <div class="progress"></div>
-        </div>
-      </div>
+      <label for={{ item.id }}>{{(item.current//item.max)*100}}% complete</label>
+      <progress id="{{ item.id }}" value="{{ item.current }}" max="{{ item.max }}"></progress>
     </div>
   </div>
+  <div class="ui hidden divider"></div>
   {% endfor %}
 </div>
 {% endblock %}
