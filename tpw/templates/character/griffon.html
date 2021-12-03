@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Griffon Unlock Tracker{% endblock %}
+{% block content %}
+<h1>Griffon Unlock Tracker</h1>
+<p>Hello</p>
+<div class="ui stackable list">
+  {% for item in results %}
+  <div class="item">
+    <div class="content">
+      <span class="header">{{ item.name }}</span>
+      <div class="description">
+        {{ item.description }}
+      </div>
+      <div class="ui progress" data-percent="{{ item.percentage }}%">
+        <div class="bar">
+          <div class="progress"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

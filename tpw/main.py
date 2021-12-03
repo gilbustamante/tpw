@@ -113,10 +113,53 @@ def daily():
     today_details = public_api_call(detail_url + ','.join(all_ids))
 
     # There should always be the same amount of dailies for each category
-    sorted_details = dict()
-    sorted_details["pve"] = today_details[:4]
-    sorted_details["pvp"] = today_details[4:8]
-    sorted_details["fractals"] = today_details[8:23]
-    sorted_details["wvw"] = today_details[23:27]
+    sorted_details = dict(
+        pve = today_details[:4],
+        pvp = today_details[4:8],
+        fractals = today_details[8:23],
+        wvw = today_details[23:27]
+    )
 
     return render_template("character/daily.html", achievements=sorted_details)
+
+@main.route("/griffon", methods=["GET"])
+def griffon():
+    """Pulls griffon mount unlock progress"""
+    url = "https://api.guildwars2.com/v2/account/achievements"
+    raw_achievements = auth_api_call(current_user.id, url)
+    griffonIDs = [
+        3736, # Sunspear Sanctuary
+        3634, # Crystal Oasis
+        3686, # Desert Highlands
+        3834, # Elon Riverlands
+        3856, # The Desolation
+        3758, # Domain of Vabbi
+        3662, # Sunspear Wisdom
+        3867  # On Wings and a Prayer
+    ];
+    result = []
+
+    # Get achievement details
+    details_url = 'https://api.guildwars2.com/v2/achievements?ids='
+    details_url += ','.join(str(_id) for _id in griffonIDs)
+    achievement_details_raw = public_api_call(details_url)
+
+    # Start building result dictionary
+    for item in raw_achievements:
+        if item["id"] in griffonIDs:
+            percentage = round((item["current"] / item["max"]) * 100)
+            new_dict = dict(
+                id=item["id"],
+                percentage=percentage,
+                done=item["done"]
+            )
+            result.append(new_dict)
+
+    # Add achievement details to result dictionary
+    for item in result:
+        for detail in achievement_details_raw:
+            if item["id"] == detail["id"]:
+                item["name"] = detail["name"]
+                item["description"] = detail["requirement"]
+
+    return render_template("character/griffon.html", results=result)
