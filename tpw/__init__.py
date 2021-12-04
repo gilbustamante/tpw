@@ -1,18 +1,23 @@
+from datetime import datetime, timezone
+import os
+
 from dotenv import load_dotenv
 from flask import Flask, render_template
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
-from .extensions import db
+import timeago
+
+from .extensions import db, cache
 from .main import main as main_blueprint
 from .auth import auth as auth_blueprint
 from .market import market as market_blueprint
 from .models import User
-from datetime import datetime, timezone
-import timeago
-import os
 
 # Init app
 app = Flask(__name__)
+
+# Init cache
+cache.init_app(app)
 
 # 404 Error handler
 @app.errorhandler(404)

@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, url_for
 from flask_login import login_required, current_user
 from dotenv import load_dotenv
-from tpw.helpers import (auth_api_call, public_api_call,
-                         format_number, format_gold)
+
+from tpw.helpers import auth_api_call, public_api_call, format_number, format_gold
+from .extensions import cache
 from .models import Currency, Dye, Item
 
 # Load environment variables
@@ -10,8 +11,8 @@ load_dotenv()
 
 main = Blueprint("main", __name__)
 
-
 @main.route("/", methods=["GET"])
+@cache.cached(600) # 10 minutes
 def index():
     """Main page"""
     return render_template("index.html")
@@ -38,6 +39,7 @@ def wallet():
 
 @main.route("/dyes", methods=["GET"])
 @login_required
+@cache.cached(180) # 3 minutes
 def dyes():
     """Pulls current account's unlocked dyes"""
     url = "https://api.guildwars2.com/v2/account/dyes"
@@ -52,6 +54,7 @@ def dyes():
 
 @main.route("/bank", methods=["GET"])
 @login_required
+@cache.cached(180) # 3 minutes
 def bank():
     """Pulls current account's bank info"""
     url = "https://api.guildwars2.com/v2/account/bank"
@@ -59,7 +62,7 @@ def bank():
     mutable_items = list(res)
 
     # Empty bank slots
-    free = 0 
+    free = 0
 
     for item in mutable_items:
         # If value is None, there is no item in that slot
@@ -89,6 +92,7 @@ def bank():
     return render_template("character/bank.html", items=mutable_items, free=free)
 
 @main.route("/daily", methods=["GET"])
+@cache.cached(600) # 10 minutes
 def daily():
     """Pulls daily achievement info"""
     url = "https://api.guildwars2.com/v2/achievements/daily?v=2019-05-16T00:00:00.000Z"
@@ -123,6 +127,7 @@ def daily():
     return render_template("character/daily.html", achievements=sorted_details)
 
 @main.route("/griffon", methods=["GET"])
+@cache.cached(300) # 5 minutes
 def griffon():
     """Pulls griffon mount unlock progress"""
     url = "https://api.guildwars2.com/v2/account/achievements"
