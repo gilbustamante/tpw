@@ -4,8 +4,9 @@ from dotenv import load_dotenv
 
 from .extensions import cache
 from .models import Currency, Dye, Item
-from tpw.helpers import (auth_api_call, public_api_call, format_number, format_gold,
-                         find_item, check_if_undercut, check_if_outbid)
+from tpw.helpers import (auth_api_call, public_api_call, format_number,
+                         format_gold, find_item, check_if_undercut,
+                         check_if_outbid)
 
 # Load environment variables
 load_dotenv()
