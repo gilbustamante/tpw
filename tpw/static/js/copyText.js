@@ -8,7 +8,7 @@ for (let title of itemTitles) {
   title.addEventListener("copy", function (event) {
     event.preventDefault();
     if (event.clipboardData) {
-      event.clipboardData.setData("text/plain", title.textContent);
+      event.clipboardData.setData("text/plain", title.textContent.trim());
     }
   });
 }

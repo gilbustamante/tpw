@@ -38,8 +38,9 @@
       <img src="{{ order.icon }}" alt="{{ order.name }}" class="ui rounded image">
       <div class="content">
         <span class="header itemName" data-tooltip="Click to copy" data-position="left center">
-          {{ order.name }} ({{ order.quantity }})
+          {{ order.name }}
         </span>
+        Qty: {{ order.quantity }}
         <div class="description">
           {{ format_gold(order.price)|safe }}
           {% if order.undercut == True %}
