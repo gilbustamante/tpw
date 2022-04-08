@@ -15,7 +15,7 @@ market = Blueprint("market", __name__)
 
 @market.route("/current", methods=["GET"])
 @login_required
-@cache.cached(60) # 1 minute
+#@cache.cached(60) # 1 minute
 def listings_current():
     # All the URLs we'll need for this route
     sell_url = "https://api.guildwars2.com/v2/commerce/transactions/current/sells"
@@ -71,7 +71,7 @@ def listings_current():
 
 @market.route("/history", methods=["GET"])
 @login_required
-@cache.cached(60) # 1 minute
+#@cache.cached(60) # 1 minute
 def listings_history():
     sold_url = "https://api.guildwars2.com/v2/commerce/transactions/history/sells"
     bought_url = "https://api.guildwars2.com/v2/commerce/transactions/history/buys"
