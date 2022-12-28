@@ -28,7 +28,6 @@ def wallet():
         curr = Currency.query.filter_by(currency_id=item["id"]).first()
         item["name"] = curr.name
         item["icon"] = curr.icon
-
         # Use the format_gold helper to correctly format coin values
         if item["name"] == 'Coin':
             item["value"] = format_gold(item["value"])
@@ -69,10 +68,8 @@ def bank():
         if item is None:
             free += 1 
             continue
-
         # Find item details in database
         item_obj = Item.query.filter_by(item_id=item["id"]).first()
-
         # GW2 item API doesn't whitelist an item until it has been interacted
         # with by a user. A few years back the main whitelist was "lost" and
         # had to be recreated by ArenaNet. This causes old items to return None
@@ -82,13 +79,11 @@ def bank():
             item["name"] = "Unknown Item"
             item["icon"] = f"{url_for('static', filename='images/unknown.png')}"
             continue
-
         # Assign details to item
         item["name"] = item_obj.name
         item["icon"] = item_obj.icon
         item["item_level"] = item_obj.item_level
         item["rarity"] = item_obj.rarity
-
     return render_template("character/bank.html", items=mutable_items, free=free)
 
 @main.route("/daily", methods=["GET"])
