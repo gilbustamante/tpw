@@ -11,5 +11,5 @@ python-dotenv==0.18.0
 requests==2.26.0
 SQLAlchemy==1.4.20
 timeago==1.0.15
-Werkzeug==2.0.1
+Werkzeug>=2.3.8
 wrapt==1.12.1
