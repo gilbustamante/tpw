@@ -5,7 +5,7 @@ Flask-SQLAlchemy==2.5.1
 gunicorn==20.1.0
 is-safe-url==1.0
 MarkupSafe==2.0.1
-mysql-connector-python==8.0.25
+mysql-connector-python==9.1.0
 mysqlclient==2.0.3
 python-dotenv==0.18.0
 requests>=2.31.0
